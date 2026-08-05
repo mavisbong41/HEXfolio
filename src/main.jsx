@@ -530,7 +530,7 @@ function ThreeCharacter({ stock, reaction, forceState, featured, compact }) {
         }
       });
     };
-  }, [stock.asset, stock.avatar, stock.move, displayState, reaction, compact, characterPackVersion]);
+  }, [stock.asset, stock.avatar, stock.move, displayState, reaction, compact]);
 
   return (
     <div className={`three-character ${featured ? "featured" : ""} ${compact ? "compact" : ""} state-${state} reaction-${reaction || "idle"}`}>
