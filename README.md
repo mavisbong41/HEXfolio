@@ -2,11 +2,15 @@
 
 When the market turns red, your portfolio should not become your personality.
 
-HEXfolio is a behavioral finance web experience that turns stocks into emotional 3D pets. It helps beginner investors notice panic, FOMO, loss aversion, anchoring, and revenge trading before those feelings become trades. Instead of making finance feel colder, HEXfolio makes the messy emotional part visible, playful, and easier to learn from.
+HEXfolio is a behavioral finance web experience where stocks become emotional 3D pets. It helps beginner investors practice financial literacy by spotting panic, FOMO, loss aversion, anchoring, and revenge trading before those feelings turn into impulsive decisions.
 
 Built for **Hackonomics 2027**, a hackathon about connecting computer science, economics, and financial literacy.
 
-## The Problem
+## Live Demo
+
+https://hexfolio.vercel.app/
+
+## Why HEXfolio
 
 Most finance tools assume the user is calm.
 
@@ -16,40 +20,40 @@ A stock drops hard. The screen turns red. Someone online says the market is doom
 
 That is where financial literacy often breaks. Not because people never learned what a stock is, but because emotion hijacks the moment when the lesson matters most.
 
-HEXfolio was inspired by that feeling, especially after seeing sharp movements in Korean stocks like SK Hynix and Samsung. When prices swing, new investors can fall into doom-scrolling, revenge trading, or blaming themselves. HEXfolio tries to make that moment less lonely and less negative by turning the emotion into something visible, funny, and teachable.
+HEXfolio was also inspired by seeing sharp moves in Korean stocks like SK Hynix and Samsung. When prices swing, new investors can easily fall into doom-scrolling, revenge trading, or blaming themselves. I wanted to make that moment less lonely and less negative by turning the emotion into something visible, funny, and teachable.
 
-## The Product
+## What It Does
 
-HEXfolio is not a stock-picking app. It does not tell users what to buy or sell.
+HEXfolio is not a stock-picking app. It does not give buy or sell advice.
 
 It is a financial literacy playground where market stress becomes an interactive lesson.
 
 ### Emotion Playground
 
-Each stock becomes a 3D robot pet with its own mood. If the stock falls, the pet may look stressed or overwhelmed. If it rises, the pet can become excited, but still needs rules.
+Each stock becomes a 3D robot pet with its own mood. If the stock falls, the pet may look stressed, dramatic, or overwhelmed. If it rises, the pet can look excited, but still needs rules.
 
 Users can drag emotion tools onto the pet:
 
-| Tool | What It Means |
+| Tool | What It Does |
 | --- | --- |
-| Curse | Release panic without pretending the price changed |
-| Shield | Separate conviction from risk blindness |
-| Candle | Flip the emotional candle, not the real market |
-| CEO | Summon silly corporate reassurance and question narratives |
-| Graveyard | Put a position away temporarily to stop obsessive checking |
-| Seal | Start a cooldown before revenge-clicking |
+| Curse | Releases panic without pretending the price changed |
+| Shield | Separates conviction from risk blindness |
+| Candle | Flips the emotional candle, not the real market |
+| CEO | Summons silly corporate reassurance and questions narratives |
+| Graveyard | Puts a position away temporarily to stop obsessive checking |
+| Seal | Starts a cooldown before revenge-clicking |
 
-Sometimes negative red `ERROR` bubbles appear around a losing pet, saying things like `SELL NOW??`, `WHY DID I BUY THIS`, or `PANIC TAB OPEN`. The Curse tool can seal those bubbles away, turning a stressful reaction into a small moment of relief.
+Sometimes red `ERROR` bubbles appear around a losing pet, saying things like `SELL NOW??`, `WHY DID I BUY THIS`, or `PANIC TAB OPEN`. The Curse tool can seal those bubbles away, turning a stressful reaction into a small moment of relief.
 
 ### Time Machine
 
-Users are shown only part of a historical stock path. They must choose **Buy**, **Hold**, or **Sell** before the future is revealed.
+Users see only part of a historical stock path and must choose **Buy**, **Hold**, or **Sell** before the future is revealed.
 
 After the choice, HEXfolio reveals what happened next and explains the behavioral finance lesson behind the moment. The goal is not to predict perfectly. The goal is to notice the bias before it makes the decision.
 
 ### Investor DNA
 
-After enough Time Machine answers, users unlock a shareable-style investor report. It summarizes patterns like FOMO, panic selling, patience, and self-awareness in a format that feels more like a social media personality report than a finance worksheet.
+After enough Time Machine answers, users unlock a shareable-style investor report. It summarizes patterns like FOMO, panic selling, patience, and self-awareness in a format that feels closer to a social media personality report than a finance worksheet.
 
 ## Architecture
 
@@ -76,38 +80,38 @@ flowchart TD
   UI --> Deploy["Vercel Static Hosting<br/>dist output + API route"]
 ```
 
-## How It Works
+## Interaction Flow
 
 ```mermaid
 sequenceDiagram
   participant User
   participant App as HEXfolio UI
   participant Pet as 3D Stock Pet
-  participant API as /api/market
+  participant API as Market API
   participant Market as Yahoo Finance
 
   User->>App: Opens HEXfolio
-  App->>API: Request latest ticker movement
-  API->>Market: Fetch chart data
-  Market-->>API: Return quote metadata
-  API-->>App: Return market JSON
-  App->>Pet: Update mood from stock movement
+  App->>API: Requests latest ticker movement
+  API->>Market: Fetches chart data
+  Market-->>API: Returns quote metadata
+  API-->>App: Returns market JSON
+  App->>Pet: Updates mood from stock movement
   Pet-->>User: Shows stress, calm, or hype
-  User->>App: Drag Curse / Shield / Candle tool
-  App->>Pet: Trigger comfort animation
-  Pet-->>User: Meme bubble + emotional feedback
+  User->>App: Uses an emotion tool
+  App->>Pet: Triggers comfort animation
+  Pet-->>User: Shows meme bubble feedback
 ```
 
-## Tech Stack
+## Built With
 
-| Layer | Built With |
+| Layer | Technology |
 | --- | --- |
 | Frontend | React, Vite, JavaScript |
 | 3D Characters | Three.js |
-| UI + Animation | CSS, custom interaction states |
+| Interface | CSS, custom animation, drag-and-drop interactions |
 | Icons | Lucide React |
 | Market Data | Yahoo Finance chart endpoint |
-| API Proxy | Vercel Serverless Function |
+| API Layer | Vercel Serverless Function |
 | Deployment | Vercel |
 
 ## Project Structure
@@ -115,16 +119,16 @@ sequenceDiagram
 ```text
 HEXfolio/
 ├── api/
-│   └── market.js          # Vercel serverless function for stock quotes
+│   └── market.js          # Vercel serverless market-data endpoint
 ├── public/
 │   ├── hexfolio-logo.png  # site logo + favicon
-│   └── rituals/           # emotion tool PNG assets
+│   └── rituals/           # emotion tool assets
 ├── src/
 │   ├── main.jsx           # app logic, Three.js robots, modes, market sync
-│   └── styles.css         # visual system, layout, animations
+│   └── styles.css         # layout, visual system, animation
 ├── index.html
-├── vite.config.js         # local dev proxy for market data
-├── vercel.json            # SPA rewrite for deployed routes
+├── vite.config.js         # local dev proxy
+├── vercel.json            # deployed SPA rewrite
 └── package.json
 ```
 
@@ -135,33 +139,11 @@ npm install
 npm run dev
 ```
 
-Open the local URL Vite prints, usually:
-
-```text
-http://localhost:5173
-```
-
-In this workspace, the app has also been tested on:
-
-```text
-http://localhost:5190
-```
-
 ## Build
 
 ```bash
 npm run build
 ```
-
-## Live Demo
-
-HEXfolio is live here:
-
-```text
-https://hexfolio.vercel.app/
-```
-
-The deployed site includes the React experience and a Vercel serverless market-data endpoint for live quote sync.
 
 ## What I Learned
 
