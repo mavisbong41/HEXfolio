@@ -153,32 +153,15 @@ http://localhost:5190
 npm run build
 ```
 
-## Deploy
+## Live Demo
 
-HEXfolio is ready for Vercel.
-
-Recommended settings:
-
-| Setting | Value |
-| --- | --- |
-| Framework Preset | Vite |
-| Build Command | `npm run build` |
-| Output Directory | `dist` |
-| Install Command | `npm install` |
-| Environment Variables | None required |
-
-The project includes `api/market.js`, so Vercel will deploy both:
-
-- the React website
-- the serverless market data endpoint
-
-Test the deployed API with:
+HEXfolio is live here:
 
 ```text
-https://your-project.vercel.app/api/market?ticker=NVDA
+https://hexfolio.vercel.app/
 ```
 
-If it returns JSON, live market sync is working.
+The deployed site includes the React experience and a Vercel serverless market-data endpoint for live quote sync.
 
 ## What I Learned
 
